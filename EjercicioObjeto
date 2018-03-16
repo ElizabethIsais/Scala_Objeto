@@ -1,0 +1,92 @@
+import scala.collection.mutable.ArrayBuffer
+
+
+class Paciente (private var nombre : String ,  private var primerAp : String , private var segundoAp : String, private var edad : Int, private val fecha :  ArrayBuffer[String], 
+   private val horaRegistro :  ArrayBuffer[String], private val nivelBienestar :  ArrayBuffer[Int], private val temperatura :  ArrayBuffer[Double], private val humedad :  ArrayBuffer[Int]){ 
+  
+  
+  def obtenerPromedioBienestar(nivel : ArrayBuffer[Int]) : Unit = {
+    var prom = 0.0
+    var cont = 0
+    
+    for (e <- nivel){
+      prom += e
+      cont +=1
+    }
+    
+    println("El promedio de nivel de bienestar es: " + (prom/cont))
+  }
+  
+  def obtenerTemperaturaMayor(temp : ArrayBuffer[Double], fecha : ArrayBuffer[String], horaRegistro : ArrayBuffer[String], nivel : ArrayBuffer[Int], humed : ArrayBuffer[Int]){
+    var mayor = 0.0
+    var pos = 0
+    
+    for (e <- temp){
+      if(e > mayor){
+        mayor = e
+      }
+    }
+    
+    for (e <- temp){
+      if(e == mayor){
+         println("Temperatura Mayor: " + mayor)
+         println("Fecha: " + fecha(pos))
+         println("Hora de Registro: " + horaRegistro(pos))
+         println("Nivel de Bienestar: " + nivel(pos))
+         println("Humedad: " + humedad(pos))    
+      }
+       pos +=1
+    }
+  }
+  
+  def obtenerTemperaturaMenor(temp : ArrayBuffer[Double], fecha : ArrayBuffer[String], horaRegistro : ArrayBuffer[String], nivel : ArrayBuffer[Int], humed : ArrayBuffer[Int]){
+    var menor = temp(0)
+    var pos = 0
+    
+    for (e <- temp){
+      if(e < menor){
+        menor = e
+      }
+    }
+    
+    for (e <- temp){
+      if(e == menor){
+         println("Temperatura Menor: " + menor)
+         println("Fecha: " + fecha(pos))
+         println("Hora de Registro: " + horaRegistro(pos))
+         println("Nivel de Bienestar: " + nivel(pos))
+         println("Humedad: " + humedad(pos))    
+      }
+       pos +=1
+    }
+    
+  }
+    
+}
+
+
+
+object EjercicioObjeto {
+  def main(args: Array[String]): Unit = {
+    
+    var nombre = "Claudia"
+    var primerAp = "Saldivar"
+    var segundoAp = "Isais"
+    var edad = 22
+    
+    val fecha = ArrayBuffer ("12/03/2018", "11/12/2017", "14/10/2017", "10/03/2018", "04/02/2018")
+    val horaRegistro = ArrayBuffer ("09:30 am", "10:00 am", "11:00 am", "05:00 pm", "03:00 pm")
+    val nivelBienestar = ArrayBuffer (5, 4, 3, 5, 2)
+    val temperatura = ArrayBuffer (36.6, 37.0, 38.0, 37.2, 36.3)
+    val humedad = ArrayBuffer (20, 22, 25, 23, 20)
+  
+    val p1 = new Paciente(nombre, primerAp, segundoAp, edad, fecha, horaRegistro, nivelBienestar, temperatura, humedad)
+    
+    p1.obtenerPromedioBienestar(nivelBienestar)
+    println("------------------------------------------------------")
+    p1.obtenerTemperaturaMayor(temperatura, fecha, horaRegistro, nivelBienestar, humedad)
+    println("------------------------------------------------------")
+    p1.obtenerTemperaturaMenor(temperatura, fecha, horaRegistro, nivelBienestar, humedad)
+
+  }
+}
